@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(express.static('public')); // Serve static files
 
 // API Routes
-app.use('/', routes);
+app.use('/api', routes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
@@ -30,8 +30,7 @@ app.use((req, res) => {
     });
 });
 
-module.exports = app;
-module.exports.handler = serverless(app);
+module.exports = serverless(app);
 
 if (process.env.NODE_ENV !== 'production') {
     const PORT = process.env.PORT || 3000;

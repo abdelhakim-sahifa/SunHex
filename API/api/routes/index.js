@@ -4,18 +4,11 @@ const { COUNTRY_CODES } = require('../utils/constants');
 const { generateSin } = require('../services/sinGenerator');
 const { decodeSin } = require('../services/sinDecoder');
 
-// Serve documentation page
-router.get('/', (req, res) => {
-    res.sendFile('index.html', { root: './public' });
-});
-
-// Health check endpoint
 router.get('/health', (req, res) => {
     res.json({ status: 'OK', timestamp: new Date().toISOString() });
 });
 
-// Get supported countries
-router.get('/api/countries', (req, res) => {
+router.get('/countries', (req, res) => {
     res.json({
         status: 'success',
         countries: Object.keys(COUNTRY_CODES).sort()
@@ -23,7 +16,7 @@ router.get('/api/countries', (req, res) => {
 });
 
 // Generate SIN endpoint
-router.post('/api/generate', (req, res) => {
+router.post('/generate', (req, res) => {
     const { firstName, lastName, countryCode, birthYear, birthMonth, birthDay, gender, pin } = req.body;
     
     // Validate required fields
@@ -55,7 +48,7 @@ router.post('/api/generate', (req, res) => {
 });
 
 // Decode SIN endpoint
-router.post('/api/decode', (req, res) => {
+router.post('/decode', (req, res) => {
     const { hexCode, pin } = req.body;
     
     // Validate required fields
