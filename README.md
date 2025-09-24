@@ -258,9 +258,14 @@ node index.js
 }
 ```
 
----
 
 ## License
 
 © 2025 Abdelhakim Sahifa. Released under the [MIT License](https://opensource.org/licenses/MIT).
+
+### Disclaimer
+```
+SunHex is only a project; we do not store any data, and if you use it, your data is entirely your responsibility.
+```
+
 
