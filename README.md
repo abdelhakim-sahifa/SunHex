@@ -200,7 +200,7 @@ cd SunHex/API
 npm install express cors
 
 # Start the server
-node server.js
+node index.js
 ```
 
 ### Package Dependencies
@@ -210,10 +210,10 @@ node server.js
   "name": "sin-api",
   "version": "1.0.0",
   "description": "SIN Generator/Decoder API",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "dependencies": {
     "express": "^4.18.0",
