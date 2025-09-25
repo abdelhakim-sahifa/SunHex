@@ -28,6 +28,12 @@ app.use((err, req, res, next) => {
     });
 });
 
+
+app.get('/hello', (_req, res) => {
+  res.json({ message: 'hello' });
+})
+
+
 // 404 handler
 app.use((req, res) => {
     res.status(404).json({
@@ -35,6 +41,8 @@ app.use((req, res) => {
         message: 'Endpoint not found'
     });
 });
+
+
 
 module.exports = serverless(app);
 
