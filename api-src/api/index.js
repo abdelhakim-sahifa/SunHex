@@ -4,7 +4,7 @@ const path = require('path');
 
 
 
-app.get('/api/hello', (req, res) => {
+app.get('/hello', (req, res) => {
   res.json({ message: 'Hello World' });
 });
 
