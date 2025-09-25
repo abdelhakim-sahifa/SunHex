@@ -1,10 +1,10 @@
 const express = require('express');
 const cors = require('cors');
 const serverless = require('serverless-http');
-const healthRoute = require('./routes/health');
-const countriesRoute = require('./routes/countries');
-const generateRoute = require('./routes/generate');
-const decodeRoute = require('./routes/decode');
+const healthRoute = require('./health');
+const countriesRoute = require('./countries');
+const generateRoute = require('./generate');
+const decodeRoute = require('./decode');
 
 const app = express();
 

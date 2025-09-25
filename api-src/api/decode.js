@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { decodeSin } = require('../services/sinDecoder');
+const { decodeSin } = require('./services/sinDecoder');
 
 router.post('/', (req, res) => {
     const { hexCode, pin } = req.body;

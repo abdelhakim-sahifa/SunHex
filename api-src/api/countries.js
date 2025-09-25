@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { COUNTRY_CODES } = require('../utils/constants');
+const { COUNTRY_CODES } = require('./utils/constants');
 
 router.get('/', (req, res) => {
     res.json({

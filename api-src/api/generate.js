@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { generateSin } = require('../services/sinGenerator');
+const { generateSin } = require('./services/sinGenerator');
 
 router.post('/', (req, res) => {
     const { firstName, lastName, countryCode, birthYear, birthMonth, birthDay, gender, pin } = req.body;
