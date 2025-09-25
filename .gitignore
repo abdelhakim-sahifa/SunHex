@@ -1,2 +1,4 @@
 api-src/node_modules
+api-src/.vercel/
 hidden/
+.vercel/
