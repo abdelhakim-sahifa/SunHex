@@ -1,7 +1,10 @@
 const express = require('express');
 const cors = require('cors');
 const serverless = require('serverless-http');
-const routes = require('./routes');
+const healthRoute = require('./routes/health');
+const countriesRoute = require('./routes/countries');
+const generateRoute = require('./routes/generate');
+const decodeRoute = require('./routes/decode');
 
 const app = express();
 
@@ -11,7 +14,10 @@ app.use(express.json());
 app.use(express.static('public')); // Serve static files
 
 // API Routes
-app.use('/api', routes);
+app.use('/api/health', healthRoute);
+app.use('/api/countries', countriesRoute);
+app.use('/api/generate', generateRoute);
+app.use('/api/decode', decodeRoute);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

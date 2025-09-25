@@ -12,6 +12,22 @@
   ],
   "routes": [
     {
+      "src": "/api/health",
+      "dest": "api/index.js"
+    },
+    {
+      "src": "/api/countries",
+      "dest": "api/index.js"
+    },
+    {
+      "src": "/api/generate",
+      "dest": "api/index.js"
+    },
+    {
+      "src": "/api/decode",
+      "dest": "api/index.js"
+    },
+    {
       "src": "/api/(.*)",
       "dest": "api/index.js"
     },
