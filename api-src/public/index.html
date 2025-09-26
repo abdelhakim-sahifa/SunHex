@@ -60,8 +60,7 @@
 
         /* Navigation */
         .navbar {
-            position: fixed;
-            top: 0;
+            position: sticky;
             width: 100%;
             background: rgba(10, 10, 11, 0.95);
             backdrop-filter: blur(20px);
@@ -157,6 +156,11 @@
             animation: fadeInUp 1s ease-out 0.6s both;
         }
 
+        .btn:hover {
+            box-shadow: 0 0 8px rgba(0, 184, 148, 0.3);
+            transform: translateY(-1px);
+        }
+
         .btn {
             padding: 1rem 2rem;
             border: none;
@@ -169,26 +173,7 @@
             overflow: hidden;
             font-family: 'Google Sans', sans-serif;
             z-index: 1;
-            transition: color 0.3s ease-in-out;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--accent-gradient);
-            border-radius: 0.5rem;
-            z-index: -1;
-            transition: transform 0.5s ease-in-out;
-            transform: scaleX(0);
-            transform-origin: left;
-        }
-
-        .btn:hover::before {
-            transform: scaleX(1);
+            transition: all 0.2s ease-in-out, box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
         }
 
         .btn-primary {
@@ -196,32 +181,10 @@
             color: var(--text-primary);
         }
 
-        .btn-primary::before {
-            background: var(--bg-secondary);
-            transform-origin: right;
-        }
-
-        .btn-primary:hover {
-            color: var(--accent-primary);
-        }
-
         .btn-secondary {
             background: transparent;
             color: var(--text-primary);
             border: 2px solid var(--accent-primary);
-        }
-
-        .btn-secondary::before {
-            background: var(--accent-gradient);
-            transform-origin: left;
-        }
-
-        .btn-secondary:hover {
-            color: var(--text-primary);
-        }
-
-        .btn:hover {
-            /* No transform or box-shadow on hover for this animation */
         }
 
         .hex-display {
@@ -610,10 +573,19 @@
         ::-webkit-scrollbar-thumb:hover {
             background: var(--accent-secondary);
         }
+
+        @media (max-width: 768px) {
+            .api-announcement {
+                font-size: 12px !important;
+                padding: 5px !important;
+            }
+        }
     </style>
 </head>
 <body>
-    
+    <div class="api-announcement" style="background-color: #ff4d4d; color: white; text-align: center; padding: 5px; font-size: 14px; position: sticky; top: 0; z-index: 1001;">
+    The API is currently experiencing issues and may not be available. We are working on a fix.
+</div>
     <!-- Animated Background -->
     <div class="bg-animation">
         <canvas id="bg-canvas"></canvas>
@@ -631,6 +603,7 @@
             <ul class="nav-links">
                 <li><a href="#overview">Overview</a></li>
                 <li><a href="#endpoints">Endpoints</a></li>
+                <li><a href="#sin-structure">SIN Structure</a></li>
                 <li><a href="#testing">Testing</a></li>
                 <li><a href="#security">Security</a></li>
             </ul>
@@ -1075,7 +1048,68 @@
             </div>
         </section>
 
+        <!-- SIN Structure & Encoding Section -->
+        <section id="sin-structure" class="section">
+            <div class="section-header">
+                <h2 class="section-title">SIN Structure & Encoding</h2>
+                <p class="section-subtitle">A look at how the SIN is constructed and secured</p>
+            </div>
 
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle alert-icon"></i>
+                <strong>The 66-Character SIN:</strong> The SIN is a 66-character string that is composed of the following components:
+                <ul style="margin: 0.5rem 0 0 1.5rem;">
+                    <li><b>Verifier (1 char):</b> A constant value of '1' to validate the SIN format.</li>
+                    <li><b>First Name (26 chars):</b> The user's first name, encoded numerically.</li>
+                    <li><b>Last Name (26 chars):</b> The user's last name, encoded numerically.</li>
+                    <li><b>Country (4 chars):</b> The user's country, represented by a 4-digit code.</li>
+                    <li><b>Date (8 chars):</b> The user's birth date in YYYYMMDD format.</li>
+                    <li><b>Gender (1 char):</b> '1' for male, '0' for female.</li>
+                </ul>
+            </div>
+
+            <div class="features-grid" style="margin-top: 2rem;">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-font"></i>
+                    </div>
+                    <h3 class="feature-title">Name Encoding</h3>
+                    <p class="feature-description">
+                        Each letter in the first and last name is converted to a 2-digit number (A=01, B=02, etc.). The resulting string is padded with '00' to a length of 26 characters.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-flag"></i>
+                    </div>
+                    <h3 class="feature-title">Country Encoding</h3>
+                    <p class="feature-description">
+                        Each supported ISO country code is mapped to a unique 4-digit number.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Date Encoding</h3>
+                    <p class="feature-description">
+                        The birth date is formatted as a simple YYYYMMDD string.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-venus-mars"></i>
+                    </div>
+                    <h3 class="feature-title">Gender Encoding</h3>
+                    <p class="feature-description">
+                        Gender is encoded as a single digit: '1' for male and '0' for female.
+                    </p>
+                </div>
+            </div>
+        </section>
 
         <!-- Error Handling Section -->
         <section class="section">
@@ -1387,6 +1421,25 @@
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
             createParticles();
+        });
+
+        const announcement = document.querySelector('.api-announcement');
+        const hero = document.querySelector('.hero');
+        const navbar = document.querySelector('.navbar');
+
+        window.addEventListener('scroll', () => {
+            const heroRect = hero.getBoundingClientRect();
+            if (heroRect.top < 0) {
+                announcement.style.display = 'none';
+                navbar.style.top = '0px';
+            } else {
+                announcement.style.display = 'block';
+                if (window.innerWidth <= 768) {
+                    navbar.style.top = '40px';
+                } else {
+                    navbar.style.top = '40px';
+                }
+            }
         });
     </script>
 </body>

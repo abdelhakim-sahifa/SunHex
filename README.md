@@ -1,271 +1,151 @@
 
-# *SunHex(SIN)* API
 
-**Serverless Universal Number in Heximal - Fast. Secure. Serverless.**
+![sunhex](https://i.ibb.co/q32LXH2C/sunhex.png "sunhex")
 
-Sign up and sign in instantly without servers or third-party accounts. All your essential personal data is securely encoded in a single hexadecimal string, unlocked only with your personal PIN. Fast, private, and self-contained identity management.
+This repository contains the SunHex project, which is divided into two main parts:
 
----
+- **`api-src`**: This directory contains the source code for the SunHex API, a Node.js-based service for generating and decoding unique identifiers. For more information, please refer to the `README.md` file inside the `api-src` directory.
+
+- **`Drafts`**: This directory contains various drafts and experiments related to the SunHex project. These files are not part of the main application but are kept for reference and future development.
+
+
+# SunHex API
+
+This is the official documentation for the SunHex API, a Node.js-based service for generating and decoding unique identifiers.
 
 ## Table of Contents
 
-- [Overview](#overview)
+- [Installation](#installation)
+- [Running the Application](#running-the-application)
 - [API Endpoints](#api-endpoints)
-- [Field Specifications](#field-specifications)
-- [Live API Testing](#live-api-testing)
-- [Security & Implementation](#security--implementation)
-- [Installation & Setup](#installation--setup)
-- [Error Handling](#error-handling)
+  - [Health Check](#health-check)
+  - [Get Available Countries](#get-available-countries)
+  - [Generate SIN](#generate-sin)
+  - [Decode SIN](#decode-sin)
+- [Dependencies](#dependencies)
 - [License](#license)
 
----
+## Installation
 
-## Overview
+To get started with the SunHex API, you need to have Node.js and npm installed on your machine.
 
-Advanced cryptographic system for secure personal data encoding and decoding.
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/abdelhakim-sahifa/sunhex.git
+   cd sunhex/api-src
+   ```
 
-### Features
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-- **PIN-Based Encryption:** Advanced mathematical encryption using PIN multipliers and offset algorithms for maximum security.
-- **Global Support:** Supports 195+ ISO country codes for worldwide deployment and international compatibility.
-- **Compact Format:** Converts complex personal data into efficient hexadecimal strings for optimized storage.
-- **Bidirectional Processing:** Complete reversible encoding/decoding system with full data integrity verification.
+## Running the Application
 
----
+You can run the application in two modes:
+
+- **Development mode:**
+  ```bash
+  npm run dev
+  ```
+  This will start the server with `nodemon`, which automatically restarts the application when file changes are detected.
+
+- **Production mode:**
+  ```bash
+  npm start
+  ```
+  This will start the server in a production environment.
+
+The API will be accessible at `http://localhost:3000`.
 
 ## API Endpoints
 
+The SunHex API provides the following endpoints:
+
 ### Health Check
 
-**GET /health**
-
-System health and status verification endpoint.
-
-```json
-{
-  "status": "OK",
-  "timestamp": "2024-01-15T10:30:00.000Z"
-}
-````
-
-### Countries
-
-**GET /api/countries**
-
-Retrieve list of supported ISO country codes.
-
-```json
-{
-  "status": "success",
-  "countries": ["AD", "AE", "AF", "AG", ..., "ZM", "ZW"]
-}
-```
-
-### Generate HEX Code
-
-**POST /api/generate**
-
-Generate secure HEX code from personal information.
-
-**Request Body:**
-
-```json
-{
-  "firstName": "John",
-  "lastName": "Smith",
-  "countryCode": "US",
-  "birthYear": "1990",
-  "birthMonth": "12",
-  "birthDay": "15",
-  "gender": "male",
-  "pin": 1234
-}
-```
-
-**Response:**
-
-```json
-{
-  "status": "success",
-  "hexCode": "A1B2C3D4E5F6789...",
-  "debugInfo": {
-    "originalSin": "110151408000000000000000000...",
-    "securedSin": "123456789012345...",
-    "components": {
-      "firstName": "10151408000000000000000000",
-      "lastName": "19130920080000000000000000",
-      "country": "2119",
-      "date": "19901215",
-      "gender": "1"
+- **GET** `/api/health`
+  - **Description:** Checks the status of the API.
+  - **Response:**
+    ```json
+    {
+      "status": "OK",
+      "timestamp": "2025-09-26T10:00:00.000Z"
     }
-  }
-}
-```
+    ```
 
-### Decode HEX Code
+### Get Available Countries
 
-**POST /api/decode**
+- **GET** `/api/countries`
+  - **Description:** Retrieves a list of supported countries.
+  - **Response:**
+    ```json
+    {
+      "status": "success",
+      "countries": ["US", "CA", "GB", "..."]
+    }
+    ```
 
-Decode HEX code back to original personal information.
+### Generate SIN
 
-**Request Body:**
+- **POST** `/api/generate`
+  - **Description:** Generates a new SIN based on user data.
+  - **Request Body:**
+    ```json
+    {
+      "firstName": "John",
+      "lastName": "Doe",
+      "countryCode": "US",
+      "birthYear": 1990,
+      "birthMonth": 1,
+      "birthDay": 15,
+      "gender": "Male",
+      "pin": 1234
+    }
+    ```
+  - **Response:**
+    ```json
+    {
+      "status": "success",
+      "hexCode": "a1b2c3d4e5f6"
+    }
+    ```
 
-```json
-{
-  "hexCode": "A1B2C3D4E5F6789...",
-  "pin": 1234
-}
-```
+### Decode SIN
 
-**Response:**
+- **POST** `/api/decode`
+  - **Description:** Decodes a SIN to retrieve user data.
+  - **Request Body:**
+    ```json
+    {
+      "hexCode": "a1b2c3d4e5f6",
+      "pin": 1234
+    }
+    ```
+  - **Response:**
+    ```json
+    {
+      "status": "success",
+      "data": {
+        "firstName": "John",
+        "lastName": "Doe",
+        "country": "United States",
+        "birthDate": "1990-01-15",
+        "gender": "Male"
+      }
+    }
+    ```
 
-```json
-{
-  "status": "success",
-  "personalInfo": {
-    "firstName": "John",
-    "lastName": "Smith",
-    "countryCode": "US",
-    "birthYear": "1990",
-    "birthMonth": "12",
-    "birthDay": "15",
-    "gender": "Male"
-  }
-}
-```
+## Dependencies
 
----
+The SunHex API relies on the following main dependencies:
 
-## Field Specifications
-
-| Field       | Type   | Requirements                      | Example          |
-| ----------- | ------ | --------------------------------- | ---------------- |
-| firstName   | String | Letters only, first word used     | "John"           |
-| lastName    | String | Letters only, first word used     | "Smith"          |
-| countryCode | String | 2-letter ISO code                 | "US", "CA", "MA" |
-| birthYear   | String | 4-digit year                      | "1990"           |
-| birthMonth  | String | 1-2 digits (1-12)                 | "12", "3"        |
-| birthDay    | String | 1-2 digits (1-31)                 | "15", "7"        |
-| gender      | String | "male"/"female", "m"/"f", "1"/"0" | "male"           |
-| pin         | Number | Any integer                       | 1234             |
-
----
-
-## Live API Testing
-
-Test the API directly from your browser.
-
-### Generate HEX Code
-
-Provide first name, last name, country code, birth date, gender, and PIN to generate a HEX code.
-
-### Decode HEX Code
-
-Provide HEX code and PIN to decode back to personal information.
-
----
-
-## Security & Implementation
-
-### PIN-Based Encryption
-
-The system uses mathematical transformation where the original SIN is multiplied by `(PIN + 2025)` and then has `(PIN + 2025)` added to it. This ensures unique HEX codes for identical personal information with different PINs.
-
-### Critical Security Notes
-
-* PIN is never stored and cannot be recovered from HEX code.
-* Incorrect PIN results in complete decoding failure.
-* 2025 offset prevents mathematical vulnerabilities.
-* Each component uses proprietary encoding algorithms.
-
-### Additional Security Features
-
-* **Cryptographic Security:** Military-grade mathematical obfuscation using large number operations and PIN-based encryption.
-* **Production Ready:** Designed for high-availability environments with comprehensive error handling and validation.
-* **Privacy First:** Zero data retention policy with component-wise encoding that prevents partial data extraction.
-* **Data Integrity:** Built-in format validation and verifier systems to detect tampering and ensure data accuracy.
-
----
-
-## Installation & Setup
-
-### Installation Steps
-
-```bash
-# Clone or download the project
-git clone https://github.com/abdelhakim-sahifa/SunHex.git
-# Navigate to project directory
-cd SunHex/API
-# Install dependencies
-npm install express cors
-
-# Start the server
-node index.js
-```
-
-### Package Dependencies
-
-```json
-{
-  "name": "sin-api",
-  "version": "1.0.0",
-  "description": "SIN Generator/Decoder API",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js"
-  },
-  "dependencies": {
-    "express": "^4.18.0",
-    "cors": "^2.8.5"
-  }
-}
-```
-
----
-
-## Error Handling
-
-```json
-// Missing required fields
-{
-  "status": "error",
-  "message": "Missing required fields: firstName, pin"
-}
-
-// Invalid country code
-{
-  "status": "error", 
-  "message": "Invalid country code: XX"
-}
-
-// Invalid character in name
-{
-  "status": "error",
-  "message": "Invalid character in name: @"
-}
-
-// Invalid SIN format during decoding
-{
-  "status": "error",
-  "message": "Invalid SIN length after decoding: 65 (expected 66)"
-}
-
-// Wrong PIN during decoding
-{
-  "status": "error",
-  "message": "Invalid SIN format: incorrect verifier"
-}
-```
-
+- **Express:** A fast, unopinionated, minimalist web framework for Node.js.
+- **CORS:** A Node.js package for providing a Connect/Express middleware that can be used to enable CORS with various options.
+- **Serverless-http:** A library for wrapping Express, Koa, and other Node.js frameworks to be used with AWS Lambda and API Gateway.
+- **Nodemon:** A utility that monitors for any changes in your source and automatically restarts your server.
 
 ## License
 
-© 2025 Abdelhakim Sahifa. Released under the [MIT License](https://opensource.org/licenses/MIT).
-
-## Disclaimer
-
-*SunHex is only a project; we do not store any data, and if you use it, your data is entirely your responsibility.*
-
-
+This project is licensed under the ISC License. See the `LICENSE` file for more details.
 
