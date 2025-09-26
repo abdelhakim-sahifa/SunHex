@@ -2,7 +2,8 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { SignUpForm, SignInForm, LocalStorageAdapter } from '@/components/auth';
+import Link from 'next/link';
+import { SignUpForm, SignInForm, LocalStorageAdapter, DecodeResponse } from '@/components/auth';
 import ClientBackgroundAnimation from '@/components/ClientBackgroundAnimation';
 import ThemeToggle from '@/components/ThemeToggle';
 import './auth.css';
@@ -14,7 +15,7 @@ export default function AuthExample() {
     console.log('Registration successful! SIN:', hexCode);
   };
 
-  const handleSignInSuccess = (userData: any) => {
+  const handleSignInSuccess = (userData: DecodeResponse['data']) => {
     console.log('Authentication successful!', userData);
   };
 
@@ -31,7 +32,7 @@ export default function AuthExample() {
             <span><i>SunHex Auth</i></span>
           </div>
           <ul className="nav-links">
-            <li><a href="/">Home</a></li>
+            <li><Link href="/">Home</Link></li>
             <li><a href="#overview">Overview</a></li>
             <li><a href="#installation">Installation</a></li>
             <li><a href="#examples">Examples</a></li>

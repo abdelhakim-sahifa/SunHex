@@ -554,7 +554,7 @@ export default function Home() {
             <div className="security-feature">
               <i className="fas fa-shield-alt feature-icon"></i>
               <h3>No Data Storage</h3>
-              <p>We don't store any personal information. All data is processed in memory and immediately discarded.</p>
+              <p>We don&apos;t store any personal information. All data is processed in memory and immediately discarded.</p>
             </div>
             <div className="security-feature">
               <i className="fas fa-fingerprint feature-icon"></i>
