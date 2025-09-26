@@ -520,7 +520,7 @@ export default function Home() {
                           </div>
                           <div className="info-item">
                             <label className="info-label">Birth Date:</label>
-                            <span className="info-value">{result.personalInfo?.birthMonth}/{result.personalInfo?.birthDay}/{result.personalInfo?.birthYear}</span>
+                            <span className="info-value">{result.personalInfo?.birthYear}/{result.personalInfo?.birthMonth}/{result.personalInfo?.birthDay}</span>
                           </div>
                           <div className="info-item">
                             <label className="info-label">Gender:</label>
