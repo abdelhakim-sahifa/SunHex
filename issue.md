@@ -1,1 +1,0 @@
-The issue with Vercel deployment caused by `next.config.ts` has been resolved by renaming it to `next.config.mjs` and updating its content to be JavaScript compatible.
