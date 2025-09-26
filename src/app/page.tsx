@@ -591,7 +591,7 @@ export default function Home() {
         <div className="footer-container">
           <div className="footer-content">
             <p className="copyright">© {new Date().getFullYear()} SunHex API. All rights reserved.</p>
-            <p className="disclaimer">This is a demonstration project. We do not store any personal data.</p>
+            <p className="disclaimer">We do not store any personal data.</p>
           </div>
           <div className="footer-author">
             <p className="author">Developed by <a href="https://github.com/abdelhakim-sahifa" target="_blank" rel="noopener noreferrer">Abdelhakim Sahifa</a> at <a href="https://x.com/zeaitoun" target="_blank" rel="noopener noreferrer"><Image src="/zeaitoun.png" alt="Zeaitoun Logo" width={16} height={16} className="inline-block align-middle mr-1" />Zeaitoun.</a></p>

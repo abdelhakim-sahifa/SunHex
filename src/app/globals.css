@@ -454,10 +454,9 @@ body {
 
 /* Testing Section */
 .testing-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    gap: 2rem;
-    margin-top: 3rem;
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .test-card {
@@ -1063,4 +1062,15 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
     background: var(--accent-secondary);
+}
+
+/* Selection styles */
+::selection {
+  background: var(--accent-primary);
+  color: var(--bg-primary); /* Use background color for text on selection */
+}
+
+::-moz-selection { /* Firefox compatibility */
+  background: var(--accent-primary);
+  color: var(--bg-primary);
 }
