@@ -2,7 +2,7 @@
 
 ![sunhex](https://i.ibb.co/q32LXH2C/sunhex.png "sunhex")
 
-addd 
+ 
 [![Vercel](https://img.shields.io/badge/deployed%20on-Vercel-000000?logo=vercel)](https://sunhex.vercel.app/)
 [![GitHub stars](https://img.shields.io/github/stars/abdelhakim-sahifa/SunHex?style=social)](https://github.com/abdelhakim-sahifa/SunHex/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/abdelhakim-sahifa/SunHex?style=social)](https://github.com/abdelhakim-sahifa/SunHex/network/members)
