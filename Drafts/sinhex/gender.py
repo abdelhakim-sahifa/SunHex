@@ -1,2 +1,0 @@
-male = '0'
-female = '0'

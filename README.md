@@ -2,12 +2,6 @@
 
 ![sunhex](https://i.ibb.co/q32LXH2C/sunhex.png "sunhex")
 
-This repository contains the SunHex project, which is divided into two main parts:
-
-- **`api-src`**: This directory contains the source code for the SunHex API, a Node.js-based service for generating and decoding unique identifiers. For more information, please refer to the `README.md` file inside the `api-src` directory.
-
-- **`Drafts`**: This directory contains various drafts and experiments related to the SunHex project. These files are not part of the main application but are kept for reference and future development.
-
 
 # SunHex API
 
