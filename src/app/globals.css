@@ -579,6 +579,10 @@ body {
 }
 
 /* Responsive Design */
+.navbar .mobile-menu-btn {
+    display: none;
+}
+
 @media (max-width: 768px) {
     .nav-container {
         flex-direction: column;
@@ -598,6 +602,10 @@ body {
     
     .btn {
         width: 100%;
+    }
+
+    .navbar .mobile-menu-btn {
+        display: block;
     }
 }
 
