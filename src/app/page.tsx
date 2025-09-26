@@ -563,6 +563,27 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        <section id="why-serverless" className="section">
+          <div className="section-header">
+            <h2 className="section-title">Why Serverless?</h2>
+            <p className="section-subtitle">
+              Understanding the power of local execution and data privacy
+            </p>
+          </div>
+          <div className="security-content"> {/* Reusing security-content class for consistent styling */}
+            <div className="security-feature"> {/* Reusing security-feature class for consistent styling */}
+              <i className="fas fa-download feature-icon"></i> {/* Using a download icon */}
+              <h3>Offline Capability</h3>
+              <p>SunHex is designed to be truly serverless. You can download the entire source code and run it completely offline on your local machine. This ensures maximum privacy and control over your data, as no information ever leaves your environment.</p>
+            </div>
+            <div className="security-feature">
+              <i className="fas fa-code feature-icon"></i> {/* Using a code icon */}
+              <h3>Full Transparency</h3>
+              <p>With the entire codebase available, you have full transparency into how your SINs are generated, secured, and decoded. Audit the code, modify it, or integrate it into your own projects without relying on external services.</p>
+            </div>
+          </div>
+        </section>
       </main>
       
 
@@ -573,7 +594,8 @@ export default function Home() {
             <p className="disclaimer">This is a demonstration project. We do not store any personal data.</p>
           </div>
           <div className="footer-author">
-            <p className="author">Developed by <a href="https://github.com/abdelhakim-sahifa" target="_blank" rel="noopener noreferrer">Abdelhakim Sahifa</a></p>
+            <p className="author">Developed by <a href="https://github.com/abdelhakim-sahifa" target="_blank" rel="noopener noreferrer">Abdelhakim Sahifa</a> at <a href="https://x.com/zeaitoun" target="_blank" rel="noopener noreferrer"><Image src="/zeaitoun.png" alt="Zeaitoun Logo" width={16} height={16} className="inline-block align-middle mr-1" />Zeaitoun.</a></p>
+            
           </div>
         </div>
       </footer>

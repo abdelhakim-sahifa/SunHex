@@ -2,10 +2,14 @@
 
 ![sunhex](https://i.ibb.co/q32LXH2C/sunhex.png "sunhex")
 
+addd 
+[![Vercel](https://img.shields.io/badge/deployed%20on-Vercel-000000?logo=vercel)](https://sunhex.vercel.app/)
+[![GitHub stars](https://img.shields.io/github/stars/abdelhakim-sahifa/SunHex?style=social)](https://github.com/abdelhakim-sahifa/SunHex/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/abdelhakim-sahifa/SunHex?style=social)](https://github.com/abdelhakim-sahifa/SunHex/network/members)
+[![License](https://img.shields.io/github/license/abdelhakim-sahifa/SunHex)](https://github.com/abdelhakim-sahifa/SunHex/blob/main/LICENSE)
 
-# SunHex API
 
-This is the official documentation for the SunHex API, a Node.js-based service for generating and decoding unique identifiers.
+This is the official documentation for the SunHex, a Next.js application for generating and decoding unique identifiers.
 
 ## Table of Contents
 
@@ -26,7 +30,7 @@ To get started with the SunHex API, you need to have Node.js and npm installed o
 1. **Clone the repository:**
    ```bash
    git clone https://github.com/abdelhakim-sahifa/sunhex.git
-   cd sunhex/api-src
+   cd sunhex
    ```
 
 2. **Install dependencies:**
@@ -42,15 +46,16 @@ You can run the application in two modes:
   ```bash
   npm run dev
   ```
-  This will start the server with `nodemon`, which automatically restarts the application when file changes are detected.
+  This will start the Next.js development server with hot-reloading enabled.
 
 - **Production mode:**
   ```bash
+  npm run build
   npm start
   ```
-  This will start the server in a production environment.
+  This will build the application for production and then start the production server.
 
-The API will be accessible at `http://localhost:3000`.
+The application will be accessible at `http://localhost:3000`.
 
 ## API Endpoints
 
@@ -132,14 +137,14 @@ The SunHex API provides the following endpoints:
 
 ## Dependencies
 
-The SunHex API relies on the following main dependencies:
+The SunHex application relies on the following main dependencies:
 
-- **Express:** A fast, unopinionated, minimalist web framework for Node.js.
-- **CORS:** A Node.js package for providing a Connect/Express middleware that can be used to enable CORS with various options.
-- **Serverless-http:** A library for wrapping Express, Koa, and other Node.js frameworks to be used with AWS Lambda and API Gateway.
-- **Nodemon:** A utility that monitors for any changes in your source and automatically restarts your server.
+- **Next.js:** A React framework for building full-stack web applications.
+- **React:** A JavaScript library for building user interfaces.
+- **Tailwind CSS:** A utility-first CSS framework for rapidly building custom designs.
+- **Font Awesome:** A popular icon toolkit for web projects.
 
 ## License
 
-This project is licensed under the ISC License. See the `LICENSE` file for more details.
+This project is licensed under the ISC License. See the `LICENSE.md` file for more details.
 
