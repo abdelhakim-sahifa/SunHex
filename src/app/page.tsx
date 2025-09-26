@@ -524,7 +524,7 @@ export default function Home() {
                           </div>
                           <div className="info-item">
                             <label className="info-label">Gender:</label>
-                            <span className="info-value">{result.personalInfo?.gender === 'M' ? 'Male' : 'Female'}</span>
+                            <span className="info-value">{result.personalInfo?.gender}</span>
                           </div>
                         </div>
                       </div>
