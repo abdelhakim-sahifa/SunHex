@@ -230,7 +230,7 @@ export default function Home() {
             />
             <h1 className="hero-title"><i>SunHex</i></h1>
           </div>
-          <h2 className="hero-subtitle">Serverless Universal Number in Heximal</h2>
+          <h2 className="hero-subtitle">Serverless Universal Number in Hexadecimal</h2>
           <p className="hero-description">
             Sign up and sign in instantly without servers or third-party accounts. All your essential personal data is securely encoded in a single hexadecimal string, unlocked only with your personal PIN. Fast, private, and self-contained identity management.
           </p>
