@@ -7,8 +7,8 @@ interface SignInFormProps {
   customEndpoint?: string;
 }
 
-export const SignInForm: React.FC<SignInFormProps> = ({ 
-  onSignInSuccess, 
+export const SignInForm: React.FC<SignInFormProps> = ({
+  onSignInSuccess,
   storageAdapter,
   customEndpoint = 'https://sunhex.vercel.app/api'
 }) => {
@@ -26,7 +26,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({
 
     try {
       // Validate PIN
-      if (!/^\\d{4,6}$/.test(formData.pin)) {
+      if (!/^\d{4,6}$/.test(formData.pin)) {
         throw new Error('PIN must be 4-6 digits');
       }
 
@@ -72,10 +72,10 @@ export const SignInForm: React.FC<SignInFormProps> = ({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
+    <form onSubmit={handleSubmit} className="w-full">
       <div className="space-y-4">
         <div>
-          <label htmlFor="hexCode" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="hexCode" className="block text-sm font-medium text-text-primary mb-1">
             SIN Code
           </label>
           <input
@@ -86,12 +86,12 @@ export const SignInForm: React.FC<SignInFormProps> = ({
             value={formData.hexCode}
             onChange={handleChange}
             placeholder="Enter your SIN code"
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            className="w-full p-3 bg-bg-tertiary border border-border rounded-md text-text-primary focus:outline-none focus:border-accent-primary transition-colors font-mono"
           />
         </div>
 
         <div>
-          <label htmlFor="pin" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="pin" className="block text-sm font-medium text-text-primary mb-1">
             PIN (4-6 digits)
           </label>
           <input
@@ -99,21 +99,21 @@ export const SignInForm: React.FC<SignInFormProps> = ({
             id="pin"
             name="pin"
             required
-            pattern="\\d{4,6}"
+            pattern="\d{4,6}"
             value={formData.pin}
             onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            className="w-full p-3 bg-bg-tertiary border border-border rounded-md text-text-primary focus:outline-none focus:border-accent-primary transition-colors font-mono tracking-widest text-center"
           />
         </div>
 
         {error && (
-          <div className="text-red-600 text-sm">{error}</div>
+          <div className="text-error-color text-sm p-3 bg-red-500/10 border border-error-color rounded-md">{error}</div>
         )}
 
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
+          className="w-full p-4 rounded-md bg-accent-gradient text-bg-primary font-bold text-base transition-transform active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-[0_0_20px_rgba(0,255,157,0.3)]"
         >
           {isLoading ? 'Signing In...' : 'Sign In'}
         </button>

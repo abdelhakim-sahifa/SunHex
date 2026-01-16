@@ -1,22 +1,24 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { SignUpForm, SignInForm, LocalStorageAdapter, DecodeResponse } from '@/components/auth';
 import ClientBackgroundAnimation from '@/components/ClientBackgroundAnimation';
-import ThemeToggle from '@/components/ThemeToggle';
-import './auth.css';
+import Navbar from '@/components/Navbar';
 
 const storageAdapter = new LocalStorageAdapter();
 
 export default function AuthExample() {
   const handleSignUpSuccess = (hexCode: string) => {
     console.log('Registration successful! SIN:', hexCode);
+    alert(`Registration successful! Your SIN is: ${hexCode}`);
   };
 
   const handleSignInSuccess = (userData: DecodeResponse['data']) => {
     console.log('Authentication successful!', userData);
+    if (userData) {
+      alert(`Welcome back, ${userData.firstName}!`);
+    }
   };
 
   return (
@@ -25,36 +27,21 @@ export default function AuthExample() {
         <ClientBackgroundAnimation />
       </div>
 
-      <nav className="navbar">
-        <div className="nav-container">
-          <div className="nav-logo">
-            <Image src="/favicon.png" alt="SunHex Logo" width={32} height={32} />
-            <span><i>SunHex Auth</i></span>
-          </div>
-          <ul className="nav-links">
-            <li><Link href="/">Home</Link></li>
-            <li><a href="#overview">Overview</a></li>
-            <li><a href="#installation">Installation</a></li>
-            <li><a href="#examples">Examples</a></li>
-            <li><a href="#api">API Reference</a></li>
-          </ul>
-          <ThemeToggle />
-        </div>
-      </nav>
+      <Navbar />
 
-      <main className="container">
-        <section id="overview" className="section">
-          <div className="section-header">
+      <main className="container mx-auto px-4 md:px-8 pt-24 pb-12">
+        <section id="overview" className="section mb-20 animate-fade-in-up">
+          <div className="text-center mb-16">
             <h1 className="section-title">Authentication Documentation</h1>
-            <p className="section-subtitle">
+            <p className="text-lg text-text-secondary max-w-2xl mx-auto">
               Learn how to implement secure authentication using SunHex
             </p>
           </div>
 
-          <div className="content-grid">
-            <div className="doc-card">
-              <h2>What is SunHex Authentication?</h2>
-              <p>
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-bg-secondary border border-border rounded-xl p-8 backdrop-blur-md shadow-lg">
+              <h2 className="text-2xl font-bold mb-4 font-mono text-accent-primary">What is SunHex Authentication?</h2>
+              <p className="text-text-secondary leading-relaxed">
                 SunHex provides a serverless authentication solution that enables instant user registration
                 and login without the need for traditional databases or third-party services. All user data
                 is securely encoded in hexadecimal format and protected by a user-defined PIN.
@@ -63,33 +50,60 @@ export default function AuthExample() {
           </div>
         </section>
 
-        <section id="installation" className="section">
-          <div className="section-header">
+        <section id="installation" className="section mb-20">
+          <div className="text-center mb-12">
             <h2 className="section-title">Installation</h2>
-            <p className="section-subtitle">Get started with SunHex authentication in your project</p>
+            <p className="text-lg text-text-secondary">Get started with SunHex authentication in your project</p>
           </div>
 
-          <div className="code-block">
-            <pre><code>{`npm install @sunhex/auth
+          <div className="max-w-3xl mx-auto">
+            <div className="bg-code-bg p-6 rounded-lg border border-border overflow-x-auto">
+              <pre className="text-text-primary font-mono text-sm"><code>{`npm install @sunhex/auth
 # or
 yarn add @sunhex/auth`}</code></pre>
+            </div>
           </div>
         </section>
 
-        <section id="examples" className="section">
-          <div className="section-header">
-            <h2 className="section-title">Implementation Examples</h2>
-            <p className="section-subtitle">Step-by-step guide to implement authentication</p>
+        <section id="demo" className="section mb-20">
+          <div className="text-center mb-12">
+            <h2 className="section-title">Live Demo</h2>
+            <p className="text-lg text-text-secondary">Try out the authentication components</p>
           </div>
 
-          <div className="implementation-grid">
-            <div className="code-example">
-              <h3>Sign Up Implementation</h3>
-              <pre><code>{`import { SignUpForm } from '@sunhex/auth';
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            <div className="bg-bg-secondary border border-border rounded-xl p-8 backdrop-blur-md shadow-lg">
+              <h3 className="text-xl font-bold mb-6 font-mono text-accent-primary">Sign Up Demo</h3>
+              <SignUpForm
+                onSignUpSuccess={handleSignUpSuccess}
+                storageAdapter={storageAdapter}
+              />
+            </div>
+
+            <div className="bg-bg-secondary border border-border rounded-xl p-8 backdrop-blur-md shadow-lg">
+              <h3 className="text-xl font-bold mb-6 font-mono text-accent-primary">Sign In Demo</h3>
+              <SignInForm
+                onSignInSuccess={handleSignInSuccess}
+                storageAdapter={storageAdapter}
+              />
+            </div>
+          </div>
+        </section>
+
+        <section id="examples" className="section mb-20">
+          <div className="text-center mb-12">
+            <h2 className="section-title">Implementation Examples</h2>
+            <p className="text-lg text-text-secondary">Step-by-step guide to implement authentication</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            <div className="bg-bg-secondary border border-border rounded-xl p-6 backdrop-blur-md">
+              <h3 className="text-lg font-bold mb-4 text-accent-primary font-mono">Sign Up Implementation</h3>
+              <pre className="bg-code-bg p-4 rounded border border-border overflow-x-auto text-sm"><code>{`import { SignUpForm } from '@sunhex/auth';
 
 const MySignUpComponent = () => {
   const handleSignUpSuccess = (hexCode) => {
-    // Store the hexCode securely or prompt user to save it
+    // Store the hexCode securely
     console.log('Registration successful:', hexCode);
   };
 
@@ -102,9 +116,9 @@ const MySignUpComponent = () => {
 };`}</code></pre>
             </div>
 
-            <div className="code-example">
-              <h3>Sign In Implementation</h3>
-              <pre><code>{`import { SignInForm } from '@sunhex/auth';
+            <div className="bg-bg-secondary border border-border rounded-xl p-6 backdrop-blur-md">
+              <h3 className="text-lg font-bold mb-4 text-accent-primary font-mono">Sign In Implementation</h3>
+              <pre className="bg-code-bg p-4 rounded border border-border overflow-x-auto text-sm"><code>{`import { SignInForm } from '@sunhex/auth';
 
 const MySignInComponent = () => {
   const handleSignInSuccess = (userData) => {
@@ -122,101 +136,13 @@ const MySignInComponent = () => {
             </div>
           </div>
         </section>
-
-        <section id="demo" className="section">
-          <div className="section-header">
-            <h2 className="section-title">Live Demo</h2>
-            <p className="section-subtitle">Try out the authentication components</p>
-          </div>
-
-          <div className="testing-container">
-            <div className="test-panel">
-              <div className="demo-grid">
-                <div className="demo-component">
-                  <h3>Sign Up Demo</h3>
-                  <SignUpForm
-                    onSignUpSuccess={handleSignUpSuccess}
-                    storageAdapter={storageAdapter}
-                  />
-                </div>
-
-                <div className="demo-component">
-                  <h3>Sign In Demo</h3>
-                  <SignInForm
-                    onSignInSuccess={handleSignInSuccess}
-                    storageAdapter={storageAdapter}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="api" className="section">
-          <div className="section-header">
-            <h2 className="section-title">API Reference</h2>
-            <p className="section-subtitle">Detailed documentation of available components and props</p>
-          </div>
-
-          <div className="api-docs">
-            <div className="api-component">
-              <h3>SignUpForm Component</h3>
-              <table className="api-table">
-                <thead>
-                  <tr>
-                    <th>Prop</th>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>onSignUpSuccess</td>
-                    <td>{`(hexCode: string) => void`}</td>
-                    <td>Callback function called after successful registration</td>
-                  </tr>
-                  <tr>
-                    <td>storageAdapter</td>
-                    <td>StorageAdapter</td>
-                    <td>Adapter for handling data persistence</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div className="api-component">
-              <h3>SignInForm Component</h3>
-              <table className="api-table">
-                <thead>
-                  <tr>
-                    <th>Prop</th>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>onSignInSuccess</td>
-                    <td>{`(userData: any) => void`}</td>
-                    <td>Callback function called after successful authentication</td>
-                  </tr>
-                  <tr>
-                    <td>storageAdapter</td>
-                    <td>StorageAdapter</td>
-                    <td>Adapter for handling data persistence</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </section>
       </main>
 
-      <footer className="footer">
-        <div className="footer-container">
-          <div className="footer-content">
-            <p className="copyright">© {new Date().getFullYear()} SunHex API. All rights reserved.</p>
-            <p className="disclaimer">This is a documentation page for the SunHex authentication system.</p>
+      <footer className="bg-bg-secondary text-text-secondary py-8 text-center border-t border-border mt-16">
+        <div className="max-w-[1400px] mx-auto flex flex-col gap-8 px-8">
+          <div className="flex flex-col gap-2">
+            <p className="font-bold text-text-primary">© {new Date().getFullYear()} SunHex API. All rights reserved.</p>
+            <p className="text-sm text-text-muted">This is a documentation page for the SunHex authentication system.</p>
           </div>
         </div>
       </footer>
