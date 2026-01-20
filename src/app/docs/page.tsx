@@ -12,9 +12,10 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 
 export default function DocsPage() {
   const router = useRouter();
+  const BaseUrl = 'https://sunhex.vercel.app';
 
   const INITIALIZE_CODE = `// 1. Initialize the Master Protocol
-const response = await fetch('/api/generate', {
+const response = await fetch('${BaseUrl}/api/generate', {
   method: 'POST',
   headers: {
     'Authorization': 'Bearer YOUR_SK_KEY',
@@ -36,7 +37,7 @@ const { hexCode } = await response.json();
 // Result: A versioned, salted Quantum Fragment`;
 
   const RESOLVE_CODE = `// 2. Resolve Identity from Fragment
-const response = await fetch('/api/decode', {
+const response = await fetch('${BaseUrl}/api/decode', {
   method: 'POST',
   headers: {
     'Authorization': 'Bearer YOUR_SK_KEY',
@@ -207,7 +208,7 @@ console.log(fragment); // "02F9A12..."`;
                 <div className="space-y-6">
                   <div className="flex items-center gap-4">
                     <span className="px-3 py-1 bg-green-500/20 text-green-500 rounded font-bold text-xs">POST</span>
-                    <code className="text-text-primary font-bold">/api/generate</code>
+                    <code className="text-text-primary font-bold">BaseUrl/api/generate</code>
                   </div>
                   <p className="text-text-secondary">Generates a versioned, salted Quantum Fragment from user biological data.</p>
                   <CodeBlock language="javascript" code={INITIALIZE_CODE} />
@@ -217,7 +218,7 @@ console.log(fragment); // "02F9A12..."`;
                 <div className="space-y-6">
                   <div className="flex items-center gap-4">
                     <span className="px-3 py-1 bg-green-500/20 text-green-500 rounded font-bold text-xs">POST</span>
-                    <code className="text-text-primary font-bold">/api/decode</code>
+                    <code className="text-text-primary font-bold">BaseUrl/api/decode</code>
                   </div>
                   <p className="text-text-secondary">Resolves a Quantum Fragment back into biological data using the user's private PIN.</p>
                   <CodeBlock language="javascript" code={RESOLVE_CODE} />
