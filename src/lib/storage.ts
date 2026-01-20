@@ -10,7 +10,7 @@ export interface DeveloperSession {
         birthYear: number;
         birthMonth: number;
         birthDay: number;
-        gender: 'M' | 'F';
+        gender: 'Male' | 'Female' | 'Other';
     };
     createdAt: number;
 }

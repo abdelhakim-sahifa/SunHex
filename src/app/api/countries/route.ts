@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { COUNTRY_CODES } from '../../../utils/constants';
+import { COUNTRY_CODES } from '../../../lib/core/constants';
 
 export async function GET() {
     return NextResponse.json({

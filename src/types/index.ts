@@ -10,7 +10,7 @@ export interface FormData {
     birthYear: string | number;
     birthMonth: string | number;
     birthDay: string | number;
-    gender: string;
+    gender: 'Male' | 'Female' | 'Other';
     pin: string;
 }
 
@@ -23,10 +23,10 @@ export interface PersonalInfo {
     firstName: string;
     lastName: string;
     countryCode: string;
-    birthYear: string;
-    birthMonth: string;
-    birthDay: string;
-    gender: string;
+    birthYear: number;
+    birthMonth: number;
+    birthDay: number;
+    gender: 'Male' | 'Female' | 'Other';
 }
 
 export interface ApiResult {

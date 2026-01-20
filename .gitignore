@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+sunhex-sdk/node_modules
 /.pnp
 .pnp.*
 .yarn/*
@@ -12,6 +13,7 @@
 
 # testing
 /coverage
+/offlinecode
 
 # next.js
 /.next/

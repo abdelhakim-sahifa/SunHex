@@ -1,43 +1,47 @@
 'use client';
 
-import { useState } from 'react';
-import Image from "next/image";
-import ThemeToggle from '@/components/ThemeToggle';
+import React from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { Button } from '@/components/ui/Button';
 
 export default function Navbar() {
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const router = useRouter();
 
     return (
-        <nav className="sticky top-0 w-full bg-bg-primary/95 backdrop-blur-xl border-b border-border z-50 py-4 transition-all duration-300">
-            <div className="max-w-[1400px] mx-auto px-8 flex justify-between items-center flex-wrap md:flex-nowrap">
-                <div className="flex items-center gap-3 font-bold text-2xl">
-                    <Image src="/favicon.png" alt="SunHex Logo" width={32} height={32} />
-                    <span className="bg-accent-gradient bg-clip-text text-transparent"><i>SunHex</i></span>
+        <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border/50 bg-bg-primary/80 backdrop-blur-sm">
+            <div className="container mx-auto px-4 md:px-8 py-4">
+                <div className="flex items-center justify-between">
+                    <Link href="/" className="flex items-center gap-2">
+                        <Image src="/favicon.png" alt="SunHex" width={32} height={32} className="w-8 h-8" />
+                        <span className="text-2xl font-bold font-mono text-transparent bg-clip-text bg-accent-gradient">
+                            SunHex
+                        </span>
+                    </Link>
+
+                    <div className="hidden md:flex items-center gap-8">
+                        <Link href="/docs" className="text-text-secondary hover:text-text-primary transition-colors font-medium">
+                            Protocol
+                        </Link>
+                        <Link href="/vision" className="text-text-secondary hover:text-text-primary transition-colors font-medium">
+                            Vision
+                        </Link>
+                    </div>
+
+                    <div className="flex items-center gap-4">
+                        <Button
+                            variant="ghost"
+                            onClick={() => router.push('/docs')}
+                            className="hidden sm:inline-flex"
+                        >
+                            Documentation
+                        </Button>
+                        <Button onClick={() => router.push('/signup')}>
+                            Get Started
+                        </Button>
+                    </div>
                 </div>
-                <button
-                    className="md:hidden p-2 text-text-primary bg-none border-none cursor-pointer ml-auto"
-                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                    aria-label="Toggle mobile menu"
-                >
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        {isMobileMenuOpen ? (
-                            <path d="M6 18L18 6M6 6l12 12" />
-                        ) : (
-                            <path d="M4 6h16M4 12h16M4 18h16" />
-                        )}
-                    </svg>
-                </button>
-                <ul className={`${isMobileMenuOpen ? 'flex' : 'hidden'} md:flex w-full md:w-auto flex-col md:flex-row gap-4 md:gap-8 list-none mt-4 md:mt-0 p-4 md:p-0 bg-bg-secondary md:bg-transparent shadow-lg md:shadow-none rounded-lg md:rounded-none absolute top-[60px] left-0 right-0 md:static`}>
-                    <li><a href="#features" className="text-text-secondary hover:text-accent-primary font-medium transition-colors no-underline block py-2" onClick={() => setIsMobileMenuOpen(false)}>Features</a></li>
-                    <li><a href="#docs" className="text-text-secondary hover:text-accent-primary font-medium transition-colors no-underline block py-2" onClick={() => setIsMobileMenuOpen(false)}>Documentation</a></li>
-                    <li><a href="#testing" className="text-text-secondary hover:text-accent-primary font-medium transition-colors no-underline block py-2" onClick={() => setIsMobileMenuOpen(false)}>Try it</a></li>
-                    <li><a href="#security" className="text-text-secondary hover:text-accent-primary font-medium transition-colors no-underline block py-2" onClick={() => setIsMobileMenuOpen(false)}>Security</a></li>
-                    <li><a href="/auth-example" className="text-text-secondary hover:text-accent-primary font-medium transition-colors no-underline block py-2" onClick={() => setIsMobileMenuOpen(false)}>Auth Components</a></li>
-                </ul>
-                <div className="hidden md:block">
-                    <ThemeToggle />
-                </div>
-                {/* Mobile Theme Toggle integration if needed, usually separate or in menu */}
             </div>
         </nav>
     );
