@@ -13,7 +13,6 @@ sunhex-sdk/node_modules
 
 # testing
 /coverage
-/offlinecode
 
 # next.js
 /.next/
