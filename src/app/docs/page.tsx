@@ -51,6 +51,33 @@ const response = await fetch('/api/decode', {
 const { personalInfo } = await response.json();
 // Result: Pure, validated bio-data`;
 
+  const SDK_INSTALL = `npm install @sunhex/protocol`;
+
+  const SDK_INIT = `import { SunHex } from '@sunhex/protocol';
+
+const sunhex = new SunHex();`;
+
+  const SDK_RESOLVE = `// Resolve a Quantum Fragment
+const identity = await sunhex.resolveLocal(
+  "01A7F2D...", // The Fragment
+  "1234"        // User Private PIN
+);
+
+console.log(identity.firstName); // "Abdelhakim"`;
+
+  const SDK_CRYSTALLIZE = `// Securely pack and encrypt biological data
+const fragment = await sunhex.crystallizeLocal({
+  firstName: "Jane",
+  lastName: "Doe",
+  countryCode: "US",
+  birthYear: 1995,
+  birthMonth: 5,
+  birthDay: 12,
+  gender: "Female"
+}, "pin_secret_99");
+
+console.log(fragment); // "02F9A12..."`;
+
   return (
     <div className="min-h-screen">
       <div className="bg-animation">
@@ -68,7 +95,7 @@ const { personalInfo } = await response.json();
               <div className="space-y-4">
                 <h3 className="text-sm font-bold text-accent-primary tracking-widest uppercase">Protocol</h3>
                 <nav className="flex flex-col gap-2">
-                  {['Conceptual Shift', 'Binary Specification', 'Security Mandate', 'API Reference'].map((item) => (
+                  {['Conceptual Shift', 'Binary Specification', 'Security Mandate', 'API Reference', 'SDK Reference'].map((item) => (
                     <a key={item} href={`#${item.toLowerCase().replace(/ /g, '-')}`} className="text-text-secondary hover:text-accent-primary transition-colors text-sm font-medium">
                       {item}
                     </a>
@@ -194,6 +221,47 @@ const { personalInfo } = await response.json();
                   </div>
                   <p className="text-text-secondary">Resolves a Quantum Fragment back into biological data using the user's private PIN.</p>
                   <CodeBlock language="javascript" code={RESOLVE_CODE} />
+                </div>
+              </section>
+
+              {/* SDK Reference */}
+              <section id="sdk-reference" className="space-y-12">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-accent-primary/10 flex items-center justify-center border border-accent-primary/20">
+                    <Code2 className="w-6 h-6 text-accent-primary" />
+                  </div>
+                  <h2 className="text-3xl font-bold">SDK Reference</h2>
+                </div>
+
+                <p className="text-text-secondary">
+                  The official SunHex Quantum Protocol SDK for decentralized, stateless identity resolution. Built for edge-native performance and maximum security.
+                </p>
+
+                {/* Installation */}
+                <div className="space-y-6">
+                  <h3 className="text-xl font-bold text-text-primary">Installation</h3>
+                  <CodeBlock language="bash" code={SDK_INSTALL} />
+                </div>
+
+                {/* Initialization */}
+                <div className="space-y-6">
+                  <h3 className="text-xl font-bold text-text-primary">Initialization</h3>
+                  <p className="text-text-secondary">Initialize the SDK to start performing local, secure operations.</p>
+                  <CodeBlock language="javascript" code={SDK_INIT} />
+                </div>
+
+                {/* Local Resolution */}
+                <div className="space-y-6">
+                  <h3 className="text-xl font-bold text-text-primary">Local Resolution (Edge-native)</h3>
+                  <p className="text-text-secondary">Resolution happens entirely on your machine. No data ever touches the SunHex servers.</p>
+                  <CodeBlock language="javascript" code={SDK_RESOLVE} />
+                </div>
+
+                {/* Crystallization */}
+                <div className="space-y-6">
+                  <h3 className="text-xl font-bold text-text-primary">Crystallization (Fragment Generation)</h3>
+                  <p className="text-text-secondary">Securely pack and encrypt biological data into a stateless code.</p>
+                  <CodeBlock language="javascript" code={SDK_CRYSTALLIZE} />
                 </div>
               </section>
 
