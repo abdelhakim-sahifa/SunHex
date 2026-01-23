@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Shield, Zap, AlertTriangle, CheckCircle2, XCircle, Play, Replay } from 'lucide-react';
+import { Shield, Zap, AlertTriangle, CheckCircle2, XCircle, Play, RotateCcw } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
@@ -191,9 +191,9 @@ export default function TestPage() {
                                 <div className="space-y-1">
                                     <div className="flex items-center gap-2">
                                         <span className={`text-[10px] font-black uppercase tracking-tighter px-2 py-0.5 rounded ${test.category === 'Success' ? 'bg-green-500/10 text-green-500' :
-                                                test.category === 'Logical' ? 'bg-purple-500/10 text-purple-500' :
-                                                    test.category === 'Security' ? 'bg-red-500/10 text-red-500' :
-                                                        'bg-blue-500/10 text-blue-500'
+                                            test.category === 'Logical' ? 'bg-purple-500/10 text-purple-500' :
+                                                test.category === 'Security' ? 'bg-red-500/10 text-red-500' :
+                                                    'bg-blue-500/10 text-blue-500'
                                             }`}>
                                             {test.category}
                                         </span>
