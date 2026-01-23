@@ -119,7 +119,7 @@ Content-Type: application/json
 ### Example Request
 
 ```bash
-curl -X POST http://localhost:3000/api/generate \
+curl -X POST https://sunhex.vercel.app/api/generate \
   -H "Content-Type: application/json" \
   -d '{
     "firstName": "John",
@@ -259,7 +259,7 @@ Content-Type: application/json
 ### Example Request
 
 ```bash
-curl -X POST http://localhost:3000/api/decode \
+curl -X POST https://sunhex.vercel.app/api/decode \
   -H "Content-Type: application/json" \
   -d '{
     "hexCode": "02A3B5C7D9E1F2A4B6C8D0E2F4A6B8C0D2E4F6A8B0C2D4E6F8A0B2C4D6E8",
@@ -353,7 +353,7 @@ None (GET request)
 ### Example Request
 
 ```bash
-curl http://localhost:3000/api/countries
+curl https://sunhex.vercel.app/api/countries
 ```
 
 ### Example Response
@@ -446,7 +446,7 @@ None (GET request)
 ### Example Request
 
 ```bash
-curl http://localhost:3000/api/health
+curl https://sunhex.vercel.app/api/health
 ```
 
 ### Example Response

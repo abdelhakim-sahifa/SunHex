@@ -20,7 +20,7 @@ Generate an encrypted Quantum SIN from personal information.
 #### Request
 
 ```bash
-curl -X POST http://localhost:3000/api/generate \
+curl -X POST https://sunhex.vercel.app/api/generate \
   -H "Content-Type: application/json" \
   -d '{
     "firstName": "John",
@@ -241,7 +241,7 @@ Decode an encrypted Quantum SIN back to personal information.
 #### Request
 
 ```bash
-curl -X POST http://localhost:3000/api/decode \
+curl -X POST https://sunhex.vercel.app/api/decode \
   -H "Content-Type: application/json" \
   -d '{
     "hexCode": "02A3B5C7D9E1F2A4B6C8D0E2F4A6B8C0D2E4F6A8B0C2D4E6F8A0B2C4D6E8A0B2C4D6E8F0A2B4C6D8E0F2A4B6C8D0E2F4A6B8C0D2E4F6",
@@ -386,7 +386,7 @@ Retrieve all supported country codes.
 #### Request
 
 ```bash
-curl http://localhost:3000/api/countries
+curl https://sunhex.vercel.app/api/countries
 ```
 
 #### Response (200 OK)
@@ -609,7 +609,7 @@ Check API health status.
 #### Request
 
 ```bash
-curl http://localhost:3000/api/health
+curl https://sunhex.vercel.app/api/health
 ```
 
 #### Response (200 OK)
@@ -634,7 +634,7 @@ curl http://localhost:3000/api/health
 
 **Request**:
 ```bash
-curl -X POST http://localhost:3000/api/generate \
+curl -X POST https://sunhex.vercel.app/api/generate \
   -H "Content-Type: application/json" \
   -d '{
     "firstName": "Sarah",
@@ -662,7 +662,7 @@ curl -X POST http://localhost:3000/api/generate \
 
 **Request**:
 ```bash
-curl -X POST http://localhost:3000/api/decode \
+curl -X POST https://sunhex.vercel.app/api/decode \
   -H "Content-Type: application/json" \
   -d '{
     "hexCode": "02D4E6F8A0B2C4D6E8F0A2B4C6D8E0F2A4B6C8D0E2F4A6B8C0D2E4F6A8B0C2D4E6F8A0B2C4D6E8F0A2B4C6D8E0F2A4B6C8",
@@ -695,7 +695,7 @@ curl -X POST http://localhost:3000/api/decode \
 ### Generate Quantum SIN
 
 ```javascript
-const response = await fetch('http://localhost:3000/api/generate', {
+const response = await fetch('https://sunhex.vercel.app/api/generate', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
@@ -729,7 +729,7 @@ if (data.status === 'success') {
 ### Decode Quantum SIN
 
 ```javascript
-const response = await fetch('http://localhost:3000/api/decode', {
+const response = await fetch('https://sunhex.vercel.app/api/decode', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
@@ -752,7 +752,7 @@ if (data.status === 'success') {
 ### Get Countries
 
 ```javascript
-const response = await fetch('http://localhost:3000/api/countries');
+const response = await fetch('https://sunhex.vercel.app/api/countries');
 const data = await response.json();
 
 if (data.status === 'success') {
