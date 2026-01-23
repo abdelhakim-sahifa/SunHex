@@ -32,7 +32,7 @@ export default function Navbar() {
                     <div className="flex items-center gap-4">
                         <Button
                             variant="ghost"
-                            onClick={() => router.push('/docs')}
+                            onClick={() => router.push('/docs/quickstart')}
                             className="hidden sm:inline-flex"
                         >
                             Documentation
