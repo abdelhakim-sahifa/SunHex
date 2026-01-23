@@ -43,5 +43,5 @@ next-env.d.ts
 
 # local markdown files
 hidden/
-docs/
+
 tests/
