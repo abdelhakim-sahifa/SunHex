@@ -29,9 +29,16 @@ export interface PersonalInfo {
     gender: 'Male' | 'Female' | 'Other';
 }
 
+export interface ApiError {
+    path: string;
+    message: string;
+}
+
 export interface ApiResult {
     status: 'success' | 'error';
+    code?: string;
     message?: string;
+    errors?: ApiError[];
     hexCode?: string;
     personalInfo?: PersonalInfo;
 }

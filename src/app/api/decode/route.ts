@@ -1,20 +1,29 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { decodeQuantumSin } from '../../../services/quantum';
+import { DecodeSchema } from '../../../lib/schemas/quantum';
 
 export async function POST(request: NextRequest) {
     try {
         const body = await request.json();
-        const { hexCode, pin } = body;
 
-        // Validate required fields
-        if (!hexCode || !pin) {
+        // Advanced validation using Zod
+        const validation = DecodeSchema.safeParse(body);
+
+        if (!validation.success) {
             return NextResponse.json({
                 status: 'error',
-                message: 'Missing required fields: hexCode and pin'
+                code: 'VALIDATION_ERROR',
+                message: 'Invalid request data',
+                errors: (validation.error.issues || []).map(err => ({
+                    path: err.path.join('.'),
+                    message: err.message
+                }))
             }, { status: 400 });
         }
 
-        const result = await decodeQuantumSin(hexCode, pin.toString());
+        const { hexCode, pin } = validation.data;
+
+        const result = await decodeQuantumSin(hexCode, pin);
 
         if (result.status === 'error') {
             return NextResponse.json(result, { status: 400 });

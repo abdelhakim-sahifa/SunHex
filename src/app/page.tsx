@@ -62,8 +62,8 @@ export default function LandingPage() {
                 language="javascript"
                 code={`// Initialize Quantum Identity
 const sunhex = await SunHex.initialize({
-  firstName: "Abdelhakim",
-  lastName: "Sahifa",
+  firstName: "Satoshi",
+  lastName: "Nakamoto",
   pin: "****",
   options: { security: "High" }
 });

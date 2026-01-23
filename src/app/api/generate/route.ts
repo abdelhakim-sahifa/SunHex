@@ -1,31 +1,37 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { generateQuantumSin } from '../../../services/quantum';
+import { QuantumSinSchema } from '../../../lib/schemas/quantum';
 
 export async function POST(request: NextRequest) {
     try {
         const body = await request.json();
-        const { firstName, lastName, countryCode, birthYear, birthMonth, birthDay, gender, pin } = body;
 
-        // Validate required fields
-        const requiredFields = ['firstName', 'lastName', 'countryCode', 'birthYear', 'birthMonth', 'birthDay', 'gender', 'pin'];
-        const missingFields = requiredFields.filter(field => !body[field]);
+        // Advanced validation using Zod
+        const validation = QuantumSinSchema.safeParse(body);
 
-        if (missingFields.length > 0) {
+        if (!validation.success) {
             return NextResponse.json({
                 status: 'error',
-                message: `Missing required fields: ${missingFields.join(', ')}`
+                code: 'VALIDATION_ERROR',
+                message: 'Invalid request data',
+                errors: (validation.error.issues || []).map(err => ({
+                    path: err.path.join('.'),
+                    message: err.message
+                }))
             }, { status: 400 });
         }
+
+        const { firstName, lastName, countryCode, birthYear, birthMonth, birthDay, gender, pin } = validation.data;
 
         const result = await generateQuantumSin({
             firstName,
             lastName,
             countryCode,
-            birthYear: parseInt(birthYear),
-            birthMonth: parseInt(birthMonth),
-            birthDay: parseInt(birthDay),
+            birthYear,
+            birthMonth,
+            birthDay,
             gender
-        }, pin.toString());
+        }, pin);
 
         if (result.status === 'error') {
             return NextResponse.json(result, { status: 400 });

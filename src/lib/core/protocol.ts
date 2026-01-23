@@ -32,7 +32,9 @@ export function pack(info: PersonalInfo): Uint8Array {
 
     // Get country index from the constants
     const countryIndex = Object.keys(COUNTRY_CODES).indexOf(info.countryCode.toUpperCase());
-    const finalCountryIndex = countryIndex === -1 ? 0 : countryIndex;
+    if (countryIndex === -1) {
+        throw new Error(`Critical Error: Invalid country code detected at protocol layer: ${info.countryCode}`);
+    }
 
     const buffer = new Uint8Array(1 + 1 + 2 + 2 + 1 + nameBytes.length);
     const view = new DataView(buffer.buffer);
@@ -44,7 +46,7 @@ export function pack(info: PersonalInfo): Uint8Array {
     const genderMap = { "Male": 1, "Female": 2, "Other": 3 };
     view.setUint8(offset++, genderMap[info.gender] || 0);
 
-    view.setUint16(offset, finalCountryIndex, false); offset += 2;
+    view.setUint16(offset, countryIndex, false); offset += 2;
     view.setUint16(offset, daysSinceEpoch, false); offset += 2;
 
     view.setUint8(offset++, nameBytes.length);

@@ -16,6 +16,7 @@ export default function SignUpPage() {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
     const [step, setStep] = useState<'form' | 'success'>('form');
     const [apiKey, setApiKey] = useState<string>('');
     const [countries, setCountries] = useState<string[]>([]);
@@ -55,13 +56,10 @@ export default function SignUpPage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError(null);
+        setFieldErrors({});
         setIsLoading(true);
 
         try {
-            if (!/^\d{4,6}$/.test(formData.pin)) {
-                throw new Error('PIN must be 4-6 digits');
-            }
-
             const response = await fetch('/api/generate', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -75,6 +73,12 @@ export default function SignUpPage() {
                 const session = createSession(data.hexCode, userData as any);
                 setApiKey(session.apiKey);
                 setStep('success');
+            } else if (data.code === 'VALIDATION_ERROR' && data.errors) {
+                const errors: Record<string, string> = {};
+                data.errors.forEach((err: any) => {
+                    errors[err.path] = err.message;
+                });
+                setFieldErrors(errors);
             } else {
                 throw new Error(data.message || 'Failed to initialize protocol');
             }
@@ -179,11 +183,13 @@ export default function SignUpPage() {
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="space-y-2">
                                         <label className="text-sm font-bold text-text-secondary uppercase">First Name</label>
-                                        <Input name="firstName" required value={formData.firstName} onChange={handleChange} placeholder="John" />
+                                        <Input name="firstName" required value={formData.firstName} onChange={handleChange} placeholder="John" className={fieldErrors.firstName ? 'border-red-500' : ''} />
+                                        {fieldErrors.firstName && <p className="text-[10px] text-red-500 font-bold uppercase tracking-tighter">{fieldErrors.firstName}</p>}
                                     </div>
                                     <div className="space-y-2">
                                         <label className="text-sm font-bold text-text-secondary uppercase">Last Name</label>
-                                        <Input name="lastName" required value={formData.lastName} onChange={handleChange} placeholder="Doe" />
+                                        <Input name="lastName" required value={formData.lastName} onChange={handleChange} placeholder="Doe" className={fieldErrors.lastName ? 'border-red-500' : ''} />
+                                        {fieldErrors.lastName && <p className="text-[10px] text-red-500 font-bold uppercase tracking-tighter">{fieldErrors.lastName}</p>}
                                     </div>
                                 </div>
 
@@ -194,28 +200,36 @@ export default function SignUpPage() {
                                         required
                                         value={formData.countryCode}
                                         onChange={handleChange}
-                                        className="w-full h-12 rounded-md border border-border bg-bg-tertiary px-4 py-2 text-text-primary focus:ring-2 focus:ring-accent-primary outline-none transition-all"
+                                        className={`w-full h-12 rounded-md border bg-bg-tertiary px-4 py-2 text-text-primary focus:ring-2 focus:ring-accent-primary outline-none transition-all ${fieldErrors.countryCode ? 'border-red-500' : 'border-border'}`}
                                     >
                                         <option value="">Select Origin</option>
-                                        {countries.sort().map(code => (
+                                        {(countries || []).sort().map(code => (
                                             <option key={code} value={code}>{code}</option>
                                         ))}
                                     </select>
+                                    {fieldErrors.countryCode && <p className="text-[10px] text-red-500 font-bold uppercase tracking-tighter">{fieldErrors.countryCode}</p>}
                                 </div>
 
-                                <div className="grid grid-cols-3 gap-4">
-                                    <div className="space-y-2">
-                                        <label className="text-sm font-bold text-text-secondary uppercase">Birth Year</label>
-                                        <Input type="number" name="birthYear" required value={formData.birthYear} onChange={handleChange} min="1900" max={new Date().getFullYear()} />
+                                <div className="space-y-2">
+                                    <div className="grid grid-cols-3 gap-4">
+                                        <div className="space-y-2">
+                                            <label className="text-sm font-bold text-text-secondary uppercase">Birth Year</label>
+                                            <Input type="number" name="birthYear" required value={formData.birthYear} onChange={handleChange} min="1900" max={new Date().getFullYear()} className={fieldErrors.birthYear ? 'border-red-500' : ''} />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <label className="text-sm font-bold text-text-secondary uppercase">Month</label>
+                                            <Input type="number" name="birthMonth" required value={formData.birthMonth} onChange={handleChange} min="1" max="12" className={fieldErrors.birthMonth ? 'border-red-500' : ''} />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <label className="text-sm font-bold text-text-secondary uppercase">Day</label>
+                                            <Input type="number" name="birthDay" required value={formData.birthDay} onChange={handleChange} min="1" max="31" className={fieldErrors.birthDay ? 'border-red-500' : ''} />
+                                        </div>
                                     </div>
-                                    <div className="space-y-2">
-                                        <label className="text-sm font-bold text-text-secondary uppercase">Month</label>
-                                        <Input type="number" name="birthMonth" required value={formData.birthMonth} onChange={handleChange} min="1" max="12" />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-sm font-bold text-text-secondary uppercase">Day</label>
-                                        <Input type="number" name="birthDay" required value={formData.birthDay} onChange={handleChange} min="1" max="31" />
-                                    </div>
+                                    {(fieldErrors.birthYear || fieldErrors.birthMonth || fieldErrors.birthDay) && (
+                                        <p className="text-[10px] text-red-500 font-bold uppercase tracking-tighter">
+                                            {fieldErrors.birthYear || fieldErrors.birthMonth || fieldErrors.birthDay}
+                                        </p>
+                                    )}
                                 </div>
 
                                 <div className="space-y-2">
@@ -225,17 +239,19 @@ export default function SignUpPage() {
                                         required
                                         value={formData.gender}
                                         onChange={handleChange}
-                                        className="w-full h-12 rounded-md border border-border bg-bg-tertiary px-4 py-2 text-text-primary focus:ring-2 focus:ring-accent-primary outline-none transition-all"
+                                        className={`w-full h-12 rounded-md border bg-bg-tertiary px-4 py-2 text-text-primary focus:ring-2 focus:ring-accent-primary outline-none transition-all ${fieldErrors.gender ? 'border-red-500' : 'border-border'}`}
                                     >
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
                                         <option value="Other">Other</option>
                                     </select>
+                                    {fieldErrors.gender && <p className="text-[10px] text-red-500 font-bold uppercase tracking-tighter">{fieldErrors.gender}</p>}
                                 </div>
 
                                 <div className="space-y-2">
                                     <label className="text-sm font-bold text-text-secondary uppercase">Create Master PIN (4-6 digits)</label>
-                                    <Input type="password" name="pin" required value={formData.pin} onChange={handleChange} pattern="\d{4,6}" placeholder="••••" className="text-center text-2xl tracking-[1em]" />
+                                    <Input type="password" name="pin" required value={formData.pin} onChange={handleChange} placeholder="••••" className={`text-center text-2xl tracking-[1em] ${fieldErrors.pin ? 'border-red-500' : ''}`} />
+                                    {fieldErrors.pin && <p className="text-[10px] text-red-500 font-bold uppercase tracking-tighter">{fieldErrors.pin}</p>}
                                 </div>
 
                                 {error && (

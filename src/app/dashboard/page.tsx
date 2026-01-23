@@ -54,7 +54,7 @@ function DashboardContent() {
                         <div className="flex items-center gap-2">
                             <Image src="/favicon.png" alt="SunHex" width={28} height={28} />
                             <span className="text-xl font-bold font-mono tracking-tighter text-transparent bg-clip-text bg-accent-gradient">
-                                TERMINAL_QX
+                                SunHex
                             </span>
                         </div>
                         <div className="flex items-center gap-6">
