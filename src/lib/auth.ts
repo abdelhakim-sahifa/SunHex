@@ -42,3 +42,20 @@ export function isAuthenticated(): boolean {
 export function isValidApiKey(apiKey: string): boolean {
     return /^sk_[a-f0-9]{32}$/.test(apiKey);
 }
+
+// OAuth Helpers
+
+/**
+ * Retrieves the fragment (sinCode) from the current session
+ */
+export function getSessionFragment(): string | null {
+    const session = storage.getSession();
+    return session ? session.sinCode : null;
+}
+
+/**
+ * Retrieves all stored identities
+ */
+export function getAllIdentities(): DeveloperSession[] {
+    return storage.getAllIdentities();
+}
