@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/Card';
 import { createSession, isAuthenticated } from '@/lib/auth';
+import { COUNTRY_NAMES } from '@/data/countries';
 
 export default function SignUpPage() {
     const router = useRouter();
@@ -203,8 +204,8 @@ export default function SignUpPage() {
                                         className={`w-full h-12 rounded-md border bg-bg-tertiary px-4 py-2 text-text-primary focus:ring-2 focus:ring-accent-primary outline-none transition-all ${fieldErrors.countryCode ? 'border-red-500' : 'border-border'}`}
                                     >
                                         <option value="">Select Origin</option>
-                                        {(countries || []).sort().map(code => (
-                                            <option key={code} value={code}>{code}</option>
+                                        {(countries || []).sort((a, b) => (COUNTRY_NAMES[a] || a).localeCompare(COUNTRY_NAMES[b] || b)).map(code => (
+                                            <option key={code} value={code}>{COUNTRY_NAMES[code as keyof typeof COUNTRY_NAMES] || code}</option>
                                         ))}
                                     </select>
                                     {fieldErrors.countryCode && <p className="text-[10px] text-red-500 font-bold uppercase tracking-tighter">{fieldErrors.countryCode}</p>}

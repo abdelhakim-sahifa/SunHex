@@ -15,6 +15,7 @@ import { DeveloperSession } from '@/lib/storage';
 import { Button } from '@/components/ui/Button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/Card';
 import { QuantumSandbox } from '@/components/dashboard/QuantumSandbox';
+import { COUNTRY_NAMES } from '@/data/countries';
 
 function DashboardContent() {
     const router = useRouter();
@@ -145,7 +146,7 @@ function DashboardContent() {
                                         <p className="text-[10px] text-text-muted uppercase font-bold tracking-widest mb-1">Quantum Origin</p>
                                         <div className="flex items-center gap-2">
                                             <Globe className="w-4 h-4 text-accent-secondary" />
-                                            <p className="font-bold font-mono">{developer.userData.countryCode}</p>
+                                            <p className="font-bold font-mono">{COUNTRY_NAMES[developer.userData.countryCode as keyof typeof COUNTRY_NAMES] || developer.userData.countryCode}</p>
                                         </div>
                                     </div>
                                     <div className="text-right">

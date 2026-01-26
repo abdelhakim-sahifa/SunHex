@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { TerminalLog, LogEntry } from './TerminalLog';
 import { useSunHex } from '@/hooks/useSunHex';
 import { COUNTRY_CODES } from '@/lib/core/constants';
+import { COUNTRY_NAMES } from '@/data/countries';
 import { FormData } from '@/types';
 
 type Mode = 'encode' | 'decode';
@@ -125,7 +126,7 @@ export function QuantumSandbox({ apiKey }: { apiKey: string }) {
                         addLog('✓ Decryption Successful. Identity Fragment Recovered.', 'success');
                         addLog(`Name: ${result.personalInfo?.firstName} ${result.personalInfo?.lastName}`, 'info');
                         addLog(`Birth: ${result.personalInfo?.birthYear}-${String(result.personalInfo?.birthMonth).padStart(2, '0')}-${String(result.personalInfo?.birthDay).padStart(2, '0')}`, 'info');
-                        addLog(`Country: ${result.personalInfo?.countryCode} | Gender: ${result.personalInfo?.gender}`, 'info');
+                        addLog(`Country: ${COUNTRY_NAMES[result.personalInfo?.countryCode as keyof typeof COUNTRY_NAMES] || result.personalInfo?.countryCode} | Gender: ${result.personalInfo?.gender}`, 'info');
                     }, 900);
                 } else if (result.data) {
                     // Fallback in case the API uses 'data' wrapper
@@ -238,8 +239,8 @@ export function QuantumSandbox({ apiKey }: { apiKey: string }) {
                                             onChange={handleChange}
                                             className="w-full h-9 rounded-md border border-border bg-bg-tertiary px-3 py-1 text-xs text-text-primary outline-none"
                                         >
-                                            {Object.keys(COUNTRY_CODES).sort().map(code => (
-                                                <option key={code} value={code}>{code}</option>
+                                            {Object.keys(COUNTRY_CODES).sort((a, b) => (COUNTRY_NAMES[a] || a).localeCompare(COUNTRY_NAMES[b] || b)).map(code => (
+                                                <option key={code} value={code}>{COUNTRY_NAMES[code as keyof typeof COUNTRY_NAMES] || code}</option>
                                             ))}
                                         </select>
                                     </div>
